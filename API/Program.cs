@@ -19,25 +19,28 @@ namespace API
         public static async Task Main(string[] args)
         {
 
-           var host =  CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
 
-           using var scope = host.Services.CreateScope();
+            using var scope = host.Services.CreateScope();
 
-           var services = scope.ServiceProvider;
+            var services = scope.ServiceProvider;
 
-           try{
+            try
+            {
 
-               var context = services.GetRequiredService<DataContext>();
-               var userManager = services.GetRequiredService<UserManager<AppUser>>();
-               await context.Database.MigrateAsync();
-               await Seed.SeedData(context, userManager);
+                var context = services.GetRequiredService<DataContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                await context.Database.MigrateAsync();
+                await Seed.SeedData(context, userManager);
+                
+            }
+            catch (Exception ex)
+            {
+                var Logger = services.GetRequiredService<ILogger<Program>>();
+                Logger.LogError(ex, "An error occured during migration");
+            }
 
-           }catch(Exception ex){
-               var Logger = services.GetRequiredService<ILogger<Program>>();
-               Logger.LogError(ex, "An error occured during migration");
-           }
-
-           await host.RunAsync();
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
