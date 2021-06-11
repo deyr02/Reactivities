@@ -17,6 +17,6 @@ namespace Application.Activities
 
         public string HostUserName {get; set;}
 
-        public ICollection<Profile> Attendees {get; set;}
+        public ICollection<AttendeeDto> Attendees {get; set;}
     }
 }
