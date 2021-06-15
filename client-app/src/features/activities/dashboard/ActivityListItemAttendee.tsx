@@ -18,7 +18,7 @@ export default observer( function ActivityListItemAttendee({attendees}: Props){
                     hoverable
                     key= {attendee.username}
                     trigger={
-                        <List.Item as={Link} to ={`/profiles/${attendee.username}`} key={attendee.username}>
+                        <List.Item as={Link} to ={`/profile/${attendee.username}`} key={attendee.username}>
                             <Image size='mini' circular  src={ attendee.image || '/assets/user.png'}/>
                         </List.Item>
                     }
