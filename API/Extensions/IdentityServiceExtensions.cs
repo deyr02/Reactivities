@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using API.Services;
 using Domain;
 using Infrastructure.Security;
@@ -28,15 +29,33 @@ namespace API.Extensions
             .AddJwtBearer(opt =>
             {
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
-                opt.TokenValidationParameters = new TokenValidationParameters{
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey =key,
+                    IssuerSigningKey = key,
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
+                opt.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if ((!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat"))))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+
             });
-            services.AddAuthorization(opt =>{
-                opt.AddPolicy("IsActivityHost", policy =>{
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsActivityHost", policy =>
+                {
                     policy.Requirements.Add(new IsHostRequirement());
                 });
             });
