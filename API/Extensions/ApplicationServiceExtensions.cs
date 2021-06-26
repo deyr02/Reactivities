@@ -71,6 +71,7 @@ namespace API.Extensions
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
+                    .WithExposedHeaders("WWW-Authenticate", "pagination")
                     .WithOrigins("http://localhost:3000");
                 });
             });

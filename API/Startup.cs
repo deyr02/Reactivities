@@ -67,6 +67,7 @@ namespace API
                 .StyleSources(s => s.Self()
                     .CustomSources(
                         "https://fonts.googleapis.com",
+                        "sha256-oFySg82XYSNiSd+Q3yfYPD/rxY6RMDMJ0KxzGG74iGM=",
                         "sha256-oFySg82XYSNiSd+Q3yfYPD/rxY6RMDMJ0KxzGG74iGM="))
                 .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FormActions(s => s.Self())
