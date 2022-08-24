@@ -22,7 +22,7 @@ namespace Persistance
                         DisplayName = "Bob",
                         UserName = "bob",
                         Email = "bob@test.com",
-                        EmailConfirmed = ture,
+                        EmailConfirmed = true,
                         
                     },
                     new AppUser
@@ -30,14 +30,14 @@ namespace Persistance
                         DisplayName = "Jane",
                         UserName = "jane",
                         Email = "jane@test.com",
-                          EmailConfirmed = ture,
+                          EmailConfirmed = true,
                     },
                     new AppUser
                     {
                         DisplayName = "Tom",
                         UserName = "tom",
                         Email = "tom@test.com",
-                          EmailConfirmed = ture,
+                          EmailConfirmed = true,
                         
                     },
                 };
